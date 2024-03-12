@@ -12,7 +12,7 @@ class Akun extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'Akun';
+    protected $table = 'akun';
 
     protected $primaryKey = 'id'; //
 
