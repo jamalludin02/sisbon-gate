@@ -16,7 +16,7 @@
             "dest": "/public/resources/"
         },
         {
-            "src": "/favicon/(.*)",
+            "src": "/favicon.ico",
             "dest": "/public/"
         },
         {
