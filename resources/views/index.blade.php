@@ -10,6 +10,7 @@
     <div class="container">
         <div class="alert alert-light text-center" role="alert">
             <h1><strong>ROVA JANCOKK!!!</strong></h1>
+            {{-- <button></button> --}}
         </div>
 
         <div class="card">

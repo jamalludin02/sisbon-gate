@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.11.3",
+        "github": "^14.0.0",
         "vercel": "^33.5.5"
     }
 }

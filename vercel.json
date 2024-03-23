@@ -8,6 +8,10 @@
     },
     "routes": [
         {
+            "src": "/asset/(.*)",
+            "dest": "/public/"
+        },
+        {
             "src": "/build/(.*)",
             "dest": "/public/build/"
         },
