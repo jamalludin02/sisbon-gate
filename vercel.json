@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/asset/(.*)",
-            "dest": "/public/"
+            "dest": "/public/asset/"
         },
         {
             "src": "/build/(.*)",
