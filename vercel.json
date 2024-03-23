@@ -9,17 +9,11 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/api/index.php",
-            "headers": {
-                "Access-Control-Allow-Origin": "*"
-              }
+            "dest": "/api/index.php"
         },
         {
-            "src": "/(.*)",
-            "dest": "public/build/assets/**",
-            "headers": {
-                "Access-Control-Allow-Origin": "*"
-              }
+            "src": "/(css|js)/(.*)",
+            "dest": "public/$1/$2"
         }
     ],
     "env": {
