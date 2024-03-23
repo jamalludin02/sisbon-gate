@@ -1,12 +1,12 @@
-<x-navbar-spv />
+    <x-navbar-spv />
 @extends('layouts.app')
 @section('content')
     <div class="container tw-h-auto">
         <div class="card">
-            <div class="card-header w-100 d-flex justify-content-between align-items-center">
+            <div class="card-header w-100 d-flex justify-content-between align-items-center py-auto">
                 <p class="m-0 d-flex">Absensi Pegawai</p>
-                <form action="{{ route('spv.absensi') }}" method="get" class="d-flex w-50 justify-content-end">
-                    <p class="mx-2 align-self-center w-50 tw-text-right">Pilih Absensi</p>
+                <form action="{{ route('spv.absensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
+                    <p class="mx-2 align-self-center w-25 tw-text-right">Pilih Absensi</p>
                     <select class="form-select form-select-sm w-25" aria-label=".form-select-sm example" name="year">
                         <option selected disabled value="">Pilih Tahun</option>
                         @for ($i = $firstYearList; $i <= $selectedYear + 5; $i++)
@@ -20,12 +20,16 @@
                         @for ($i = 1; $i <= 12; $i++)
                             <option {{ $selectedMonth == $i ? 'selected' : '' }} value="{{ $i }}">
                                 {{ \Carbon\Carbon::createFromDate(null, intVal($i), 10)->locale('id')->monthName }}
-                                {{-- {{ \Carbon\Carbon::createFromDate(null, $i, null)->monthName }} --}}
                             </option>
                         @endfor
                     </select>
-                    <button type="submit" class="d-flex mx-2 btn btn-sm tw-bg-[#007bff] tw-text-white">Cari <i
-                            class="tw-ms-2 align-items-center tw-mx-auto bi bi-search"></i></button>
+                    <button type="submit" class="d-flex mx-2 tw-w-20 btn btn-sm tw-bg-[#007bff] tw-text-white tw-px-auto">
+                        <div class="d-flex mx-auto">
+                            <p>Cari</p> 
+                        <i class="bi bi-search align-self-center tw-ml-2"></i>
+                        </div>
+                    </button>
+                    
                 </form>
             </div>
 
