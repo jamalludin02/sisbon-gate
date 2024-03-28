@@ -66,7 +66,7 @@ class KriteriaPenilaianDataTable extends DataTable
             Column::make('kriteria'), 
             Column::make('deskripsi'), 
             Column::make('bobot'), 
-            Column::make('status'), 
+            Column::make('tipe'), 
             Column::computed('action')->exportable(false)->printable(false)->width(100)->addClass('text-center')];
     }
 

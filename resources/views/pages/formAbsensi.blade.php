@@ -1,4 +1,8 @@
-<x-navbar-spv />
+@if ($role == 'SPV')
+    <x-navbar-spv />
+@elseif ($role == 'ADMIN')
+    <x-navbar-admin />
+@endif
 @extends('layouts.app')
 @section('content')
     {{-- @dd($pegawai) --}}
@@ -6,7 +10,7 @@
         <div class="card">
             <h5 class="card-header">{{ $dayName }}, {{ $day }}-{{ $month }}-{{ $year }}</h5>
             <div class="card-body">
-                <form action="{{ route('spv.absensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) }}"
+                <form action="{{ $role == 'SPV' ? route('spv.absensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) : route('admin.absensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) }}"
                     method="POST"">
                     @csrf
                     @php

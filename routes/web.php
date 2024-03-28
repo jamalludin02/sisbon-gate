@@ -3,6 +3,7 @@
 use App\Http\Controllers\ctrlAkun;
 use App\Http\Controllers\ctrlJabatan;
 use App\Http\Controllers\ctrlKriteriaPenilaian;
+use App\Http\Controllers\ctrlLaporan;
 use App\Http\Controllers\ctrlPegawai;
 use App\Http\Controllers\ctrlPenilaian;
 use App\Http\Controllers\ctrlPeriodePenilaian;
@@ -95,6 +96,19 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
         Route::post('/update/{id}', [ctrlKriteriaPenilaian::class, 'AdminUpdate'])->name('admin.kriteria-penilaian.update');
         Route::get('/delete/{id}', [ctrlKriteriaPenilaian::class, 'AdminDelete'])->name('admin.kriteria-penilaian.delete');
     });
+
+
+    Route::get('/data-absensi/{year?}/{month?}', [ctrlPresensi::class, 'dataAbsensi'])->name('admin.absensi');
+    Route::get('/data-absensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataAbsensi'])->name('admin.absensi.form');
+    Route::post('/store/data-absensi/{year?}/{month?}/{day?}', [ctrlPresensi::class, 'storeDataAbsensi'])->name('admin.absensi.store');
+
+
+    Route::get('penilaian', [ctrlPenilaian::class, 'getPeriodActive'])->name('admin.penilaian');
+    Route::get('penilaian/{id}', [ctrlPenilaian::class, 'pegawaiList'])->name('admin.penilaian.select');
+    Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('admin.penilaian.form');
+    Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('admin.penilaian.store');
+
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporan::class, 'dataLaporan'])->name('admin.laporan');
 });
 
 Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
@@ -107,9 +121,10 @@ Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
 
 
 
-    Route::get('penilaian', [ctrlPenilaian::class, 'spvGetPeriodActive'])->name('spv.penilaian');
-    Route::get('penilaian/{id}', [ctrlPenilaian::class, 'spvPegawaiList'])->name('spv.penilaian.select');
+    Route::get('penilaian', [ctrlPenilaian::class, 'getPeriodActive'])->name('spv.penilaian');
+    Route::get('penilaian/{id}', [ctrlPenilaian::class, 'pegawaiList'])->name('spv.penilaian.select');
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('spv.penilaian.form');
+    Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('spv.penilaian.store');
 
     // Route::get('/', [ctrlHome::class, 'SpvShow'])->name('spv.dashboard');
     

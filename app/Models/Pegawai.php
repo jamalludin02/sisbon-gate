@@ -29,4 +29,12 @@ class Pegawai extends Model
     {
         return $this->hasOne(Jabatan::class, 'id', 'jabatan_id');
     }
+    public function akun(){
+        return $this->hasOne(Akun::class, 'pegawai_id', 'id');
+    }
+    public function KriteriaPenilaian() : hasMany
+    {
+        return $this->hasMany(KriteriaPenilaian::class, 'pegawai_id', 'id');
+        
+    }
 }

@@ -1,4 +1,8 @@
+@if ($role == 'SPV')
     <x-navbar-spv />
+@elseif ($role == 'ADMIN')
+    <x-navbar-admin />
+@endif
 @extends('layouts.app')
 @section('content')
     <div class="container tw-h-auto">
@@ -7,7 +11,7 @@
                 <p class="m-0 d-flex">Absensi Pegawai</p>
                 <form action="{{ route('spv.absensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
                     <p class="mx-2 align-self-center w-25 tw-text-right">Pilih Absensi</p>
-                    <select class="form-select form-select-sm w-25" aria-label=".form-select-sm example" name="year">
+                    <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example" name="year">
                         <option selected disabled value="">Pilih Tahun</option>
                         @for ($i = $firstYearList; $i <= $selectedYear + 5; $i++)
                             <option {{ $i == $selectedYear ? 'selected' : '' }} value="{{ $i }}">
@@ -15,7 +19,7 @@
                         @endfor
                     </select>
 
-                    <select class="form-select form-select-sm w-25" aria-label=".form-select-sm example" name="month">
+                    <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example" name="month">
                         <option selected disabled>Pilih Bulan</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option {{ $selectedMonth == $i ? 'selected' : '' }} value="{{ $i }}">
@@ -23,13 +27,13 @@
                             </option>
                         @endfor
                     </select>
-                    <button type="submit" class="d-flex mx-2 tw-w-20 btn btn-sm tw-bg-[#007bff] tw-text-white tw-px-auto">
+                    <button type="submit" class="d-flex mx-1 tw-w-20 btn btn-sm tw-bg-[#007bff] tw-text-white tw-px-auto">
                         <div class="d-flex mx-auto">
-                            <p>Cari</p> 
-                        <i class="bi bi-search align-self-center tw-ml-2"></i>
+                            <p>Cari</p>
+                            <i class="bi bi-search align-self-center tw-ml-2"></i>
                         </div>
                     </button>
-                    
+
                 </form>
             </div>
 
@@ -51,9 +55,16 @@
                                 {{ $day }}-{{ $month }}-{{ $year }} </div>
                             <div class="col-md-2 text-center tw-my-auto">
                                 @if ($item->status == 'enable')
+                                    @if ($role == 'SPV')
                                     <a href="{{ route('spv.absensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
                                         class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
                                     </a>
+                                    @elseif ($role == 'ADMIN')
+                                    <a href="{{ route('admin.absensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
+                                        class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
+                                    </a>
+                                    @endif
+                                   
                                 @else
                                     <p
                                         class=" text-center tw-bg-red-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">

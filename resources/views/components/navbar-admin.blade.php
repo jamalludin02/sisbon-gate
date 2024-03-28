@@ -17,22 +17,14 @@
                 <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                     <li class="nav-item">
                         <a href="{{ route('admin.dashboard') }}"
-                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.dashboard') ? 'tw-underline ' : '' }}">
+                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.dashboard') ? 'tw-underline ' : '' }}">
                             Dashboard
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
-                        <a href="#!"
-                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.jabatan') ? 'tw-underline ' : '' }}">
-                            Jabatan
-                        </a>
-                    </li> --}}
-
-
                     {{-- master data --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.jabatan', 'admin.jabatan.*', 'admin.pegawai', 'admin.pegawai.*', 'admin.akun', 'admin.akun.*') ? 'tw-underline ' : '' }}"
+                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.jabatan', 'admin.jabatan.*', 'admin.pegawai', 'admin.pegawai.*', 'admin.akun', 'admin.akun.*') ? 'tw-underline ' : '' }}"
                             id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="vertical-align: middle ;">Master Data
                         </a>
@@ -61,7 +53,7 @@
 
                     {{-- master Penilaian --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.kriteria-penilaian', 'admin.kriteria-penilaian.*', 'admin.periode-penilaian', 'admin.periode-penilaian.*') ? 'tw-underline ' : '' }}"
+                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.kriteria-penilaian', 'admin.kriteria-penilaian.*', 'admin.periode-penilaian', 'admin.periode-penilaian.*') ? 'tw-underline ' : '' }}"
                             id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="vertical-align: middle ;">Master Penilaian
                         </a>
@@ -81,11 +73,27 @@
                             </li>
                         </ul>
                     </li>
-
-
+                    <li class="nav-item">
+                        <a href="{{ route('admin.absensi') }}"
+                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.absensi', 'admin.absensi.*') ? 'tw-underline ' : '' }}">
+                            Absensi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.penilaian') }}"
+                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.penilaian', 'admin.penilaian.*') ? 'tw-underline ' : '' }}">
+                            Penilaian
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.laporan') }}"
+                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.laporan', 'admin.laporan.*') ? 'tw-underline ' : '' }}">
+                            Laporan
+                        </a>
+                    </li>
                     {{-- profile --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
+                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
                             id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="vertical-align: middle ;">
                             Profile &nbsp;<i class="bi bi-person-circle"></i>

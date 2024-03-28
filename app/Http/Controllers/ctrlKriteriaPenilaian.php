@@ -32,6 +32,7 @@ class ctrlKriteriaPenilaian extends Controller
                 'kriteria' => $request->kriteria,
                 'deskripsi' => $request->deskripsi,
                 'bobot' => $request->bobot,
+                'tipe' => $request->tipe,
             ]);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -42,12 +43,14 @@ class ctrlKriteriaPenilaian extends Controller
 
     public function AdminCreated(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make(
             $request->all(),
             [
                 'kriteria' => 'required',
                 'deskripsi' => 'required',
                 'bobot' => 'required',
+                'tipe' => 'required',
             ],
             [
                 'required' => 'Data :attribute tidak boleh kosong.',
@@ -63,6 +66,7 @@ class ctrlKriteriaPenilaian extends Controller
                 'kriteria' => $request->kriteria,
                 'deskripsi' => $request->deskripsi,
                 'bobot' => $request->bobot,
+                'tipe' => $request->tipe,
             ]);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

@@ -15,6 +15,6 @@ class KriteriaPenilaian extends Model
         'kriteria',
         'deskripsi',
         'bobot',
-        'status',
+        'tipe',
     ];
 }

@@ -9,10 +9,12 @@ use App\Services\AttendanceService;
 use Carbon\Carbon;
 use stdClass;
 use App\Helper\Helper;
+use Illuminate\Support\Facades\Auth;
 
 class ctrlPresensi extends Controller
 {
     use Helper;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,6 +22,7 @@ class ctrlPresensi extends Controller
 
     public function dataAbsensi(AttendanceService $attendanceService, Request $request)
     {
+        $role = Auth::user()->role;
         $selectedYear = $request->year ?? now()->year;
         $selectedMonth = $request->month ?? now()->format('m');
         $daysInMonth = $attendanceService->daysInMonth($selectedYear, $selectedMonth);
@@ -37,17 +40,18 @@ class ctrlPresensi extends Controller
                 ],
             );
         }
-        return view('pages.supervisor.absensi', compact('arrDay', 'selectedYear', 'selectedMonth', 'firstYearList'));
+        return view('pages.absensi', compact('arrDay', 'selectedYear', 'selectedMonth', 'firstYearList', 'role'));
     }
 
     public function showDataAbsensi($year = null, $month = null, $day = null, $dayName = null)
     {
+        $role = Auth::user()->role;
         $pegawai = Presensi::with(['pegawai', 'pegawai.jabatan'])
             ->where('tgl', 'like', $year . '-' . $month . '-' . $day . '%')
+            ->orderBy('pegawai_id', 'asc')
             ->get();
         $pegawai = array_combine(array_column($pegawai->toArray(), 'id'), $pegawai->toArray());
         $pegawai = array_map(function ($item) {
-            // dd($item);
             $dtObj = new stdClass();
             $dtObj->id = $item['id'];
             $dtObj->pegawai_id = $item['pegawai_id'];
@@ -64,7 +68,11 @@ class ctrlPresensi extends Controller
         }, $pegawai);
 
         if (!$pegawai) {
-            $pegawai = Pegawai::with('jabatan')->get();
+            $pegawai = Pegawai::with(['jabatan', 'akun'])
+                ->whereHas('akun', function ($query) {
+                    $query->where('role', '!=', 'ADMIN');
+                })
+                ->get();
             $pegawai = array_map(function ($item) {
                 $dtObj = new stdClass();
                 $dtObj->id = $item['id'];
@@ -80,7 +88,7 @@ class ctrlPresensi extends Controller
             }, $pegawai->toArray());
         }
         // dd($pegawai);
-        return view('pages.supervisor.formAbsensi', compact('year', 'month', 'day', 'dayName', 'pegawai'));
+        return view('pages.formAbsensi', compact('year', 'month', 'day', 'dayName', 'pegawai', 'role'));
     }
 
     public function storeDataAbsensi(Request $request, $year = null, $month = null, $day = null)

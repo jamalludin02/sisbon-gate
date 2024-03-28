@@ -17,19 +17,19 @@
               <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                   <li class="nav-item">
                       <a href="{{ route('spv.dashboard') }}"
-                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('spv.dashboard') ? 'tw-underline ' : '' }}">
+                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.dashboard') ? 'tw-underline ' : '' }}">
                           Dashboard
                       </a>
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('spv.absensi') }}"
-                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('spv.absensi', 'spv.absensi.*') ? 'tw-underline ' : '' }}">
+                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.absensi', 'spv.absensi.*') ? 'tw-underline ' : '' }}">
                           Absensi
                       </a>
                   </li>
                   <li class="nav-item">
                       <a href="{{ route('spv.penilaian') }}"
-                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('spv.penilaian', 'spv.penilaian.*') ? 'tw-underline ' : '' }}">
+                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.penilaian', 'spv.penilaian.*') ? 'tw-underline ' : '' }}">
                           Penilaian 
                       </a>
                   </li>
@@ -38,7 +38,7 @@
 
                   {{-- profile --}}
                   <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
+                      <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
                           id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                           aria-expanded="false" style="vertical-align: middle ;">
                           Profile &nbsp;<i class="bi bi-person-circle"></i>

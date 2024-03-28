@@ -39,20 +39,20 @@
                                     value="{{ $data->tgl_lahir }}" required>
                             </div>
                             <div class="row col-md input-group-sm mb-3">
-                                <label for="pendidikan"
-                                    class="col-md-3 form-label align-middle pt-2 ps-0">Pendidikan</label>
-                                <select class="col-md form-select" aria-label="Default select example" name="pendidikan"
-                                    required>
-                                    <option disabled value="">Pilih Pendidikan</option>
-                                    <option {{ $data->pendidikan == 'SMA/SMK' ? 'selected' : '' }} value="SMA/SMK">
-                                        {{ $data->pendidikan }}</option>
-                                    <option {{ $data->pendidikan == 'D3' ? 'selected' : '' }} value="D3">D3</option>
-                                    <option {{ $data->pendidikan == 'S1' ? 'selected' : '' }} value="S1">S1</option>
-                                    <option {{ $data->pendidikan == 'S2' ? 'selected' : '' }} value="S2">S2</option>
-                                    <option {{ $data->pendidikan == 'S3' ? 'selected' : '' }} value="S3">S3</option>
+                                    <label for="pendidikan"
+                                        class="col-md-3 form-label align-middle pt-2 ps-0">Pendidikan</label>
+                                    <select class="col-md form-select" aria-label="Default select example" name="pendidikan"
+                                        required>
+                                        <option disabled value="">Pilih Pendidikan</option>
+                                        <option {{ $data->pendidikan == 'SMA/SMK' ? 'selected' : '' }} value="SMA/SMK">
+                                            {{ $data->pendidikan }}</option>
+                                        <option {{ $data->pendidikan == 'D3' ? 'selected' : '' }} value="D3">D3</option>
+                                        <option {{ $data->pendidikan == 'S1' ? 'selected' : '' }} value="S1">S1</option>
+                                        <option {{ $data->pendidikan == 'S2' ? 'selected' : '' }} value="S2">S2</option>
+                                        <option {{ $data->pendidikan == 'S3' ? 'selected' : '' }} value="S3">S3</option>
 
 
-                                </select>
+                                    </select>
                             </div>
                         </div>
                         <div class="row">

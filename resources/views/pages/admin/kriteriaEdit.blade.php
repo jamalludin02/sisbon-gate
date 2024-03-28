@@ -41,6 +41,14 @@
                                 </div>
                             </div>
                             <div class="row col-md input-group-sm mb-3">
+                                <label for="Tipe"
+                                    class="col-md-3 form-label align-middle pt-2 ps-0">Tipe</label>
+                                <select class="col-md form-select" aria-label="Default select example" name="tipe" style="height: 40px"
+                                    required>
+                                    <option selected disabled value="">Pilih Tipe</option>
+                                    <option {{$data->tipe == 'BENEFIT'? 'selected':''}} value="BENEFIT">BENEFIT</option>
+                                    <option {{$data->tipe == 'COST'? 'selected':''}} value="COST">COST</option>
+                                </select>
                             </div>
                         </div>
                     </div>

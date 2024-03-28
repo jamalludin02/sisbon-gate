@@ -1,4 +1,8 @@
-<x-navbar-spv />
+@if ($role == 'SPV')
+    <x-navbar-spv />
+@elseif ($role == 'ADMIN')
+    <x-navbar-admin />
+@endif
 @extends('layouts.app')
 
 @section('content')
@@ -56,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 text-center tw-my-auto ">
-                                    <a href="{{ route('spv.penilaian.form', [$periode->id, $item->id]) }}"
+                                    <a href="{{ $role == 'SPV' ? route('spv.penilaian.form', [$periode->id, $item->id]) : route('admin.penilaian.form', [$periode->id, $item->id]) }}"
                                         class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-6 tw-w-100 tw-mx-0 tw-rounded">Nilai
                                     </a>
                                 </div>

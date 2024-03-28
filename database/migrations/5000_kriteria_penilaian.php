@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('kriteria');
             $table->longText('deskripsi');
-            $table->integer('bobot')->range(1,5);
-            $table->enum('status',array('BENEFIT','COST'));
+            $table->integer('bobot')->range(0,5);
+            $table->enum('tipe',array('BENEFIT','COST'));
             $table->timestamps();
         });
     }

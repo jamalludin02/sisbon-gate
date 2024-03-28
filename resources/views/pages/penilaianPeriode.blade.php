@@ -1,4 +1,8 @@
-<x-navbar-spv />
+@if ($role == 'SPV')
+    <x-navbar-spv />
+@elseif ($role == 'ADMIN')
+    <x-navbar-admin />
+@endif
 @extends('layouts.app')
 
 @section('content')
@@ -43,7 +47,7 @@
                             </div>
                         </div>
                         <div class="mt-3 d-flex tw-justify-end">
-                            <a href="{{ route('spv.penilaian.select', $data->id) }}"
+                            <a href="{{ $role == 'SPV' ? route('spv.penilaian.select', $data->id) : route('admin.penilaian.select', $data->id) }}"
                                 class="btn btn-primary tw-px-4 tw-py-1">Mulai</a>
                         </div>
                     </div>

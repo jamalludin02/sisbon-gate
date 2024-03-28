@@ -14,11 +14,11 @@ class KriteriaPenilaian extends Seeder
     public function run(): void
     {
         $data = [
-            ['kriteria' => 'Kriteria A', 'deskripsi' => 'Deskripsi Kriteria A', 'bobot' => 3, 'status' => 'BENEFIT'], 
-            ['kriteria' => 'Kriteria B', 'deskripsi' => 'Deskripsi kriteria penilaian B', 'bobot' => 5, 'status' => 'BENEFIT'], 
-            ['kriteria' => 'Kriteria C', 'deskripsi' => 'Deskripsi kriteria penilaian C', 'bobot' => 4, 'status' => 'BENEFIT'], 
-            ['kriteria' => 'Kriteria D', 'deskripsi' => 'Deskripsi kriteria penilaian D', 'bobot' => 4, 'status' => 'BENEFIT'], 
-            ['kriteria' => 'Kriteria E', 'deskripsi' => 'Deskripsi kriteria penilaian E', 'bobot' => 3, 'status' => 'COST'],];
+            ['kriteria' => 'Kriteria A', 'deskripsi' => 'Deskripsi Kriteria A', 'bobot' => 3, 'tipe' => 'BENEFIT'], 
+            ['kriteria' => 'Kriteria B', 'deskripsi' => 'Deskripsi kriteria penilaian B', 'bobot' => 5, 'tipe' => 'BENEFIT'], 
+            ['kriteria' => 'Kriteria C', 'deskripsi' => 'Deskripsi kriteria penilaian C', 'bobot' => 4, 'tipe' => 'BENEFIT'], 
+            ['kriteria' => 'Kriteria D', 'deskripsi' => 'Deskripsi kriteria penilaian D', 'bobot' => 4, 'tipe' => 'BENEFIT'], 
+            ['kriteria' => 'Kriteria E', 'deskripsi' => 'Deskripsi kriteria penilaian E', 'bobot' => 3, 'tipe' => 'COST'],];
         foreach ($data as $key => $value) {
             ModelsKriteriaPenilaian::create($value);
         }
