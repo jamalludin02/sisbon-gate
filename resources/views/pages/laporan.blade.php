@@ -20,6 +20,7 @@
             <div class="card-header w-100 d-flex justify-content-between align-items-center py-auto">
                 <p class="m-0 d-flex">Absensi Pegawai</p>
                 <form action="{{ route('admin.laporan') }}" method="get"
+                @csrf
                     class="d-flex row w-50 justify-content-end  my-auto">
                     @php
                         $idSelected = request()->get('id');
