@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header w-100 d-flex justify-content-between align-items-center py-auto">
                 <p class="m-0 d-flex">Absensi Pegawai</p>
-                <form action="{{ route('spv.absensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
+                <form action="{{ route('spv.presensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
                     @csrf
                     <p class="mx-2 align-self-center w-25 tw-text-right">Pilih Absensi</p>
                     <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example" name="year">
@@ -61,7 +61,7 @@
                                         class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
                                     </a>
                                     @elseif ($role == 'ADMIN')
-                                    <a href="{{ route('admin.absensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
+                                    <a href="{{ route('admin.presensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
                                         class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
                                     </a>
                                     @endif

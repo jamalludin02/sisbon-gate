@@ -10,13 +10,14 @@
         <div class="card">
             <h5 class="card-header">{{ $dayName }}, {{ $day }}-{{ $month }}-{{ $year }}</h5>
             <div class="card-body">
-                <form action="{{ $role == 'SPV' ? route('spv.absensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) : route('admin.absensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) }}"
+                <form action="{{ $role == 'SPV' ? route('spv.presensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) : route('admin.presensi.store', ['year' => $year, 'month' => $month, 'day' => $day]) }}"
                     method="POST"">
                     @csrf
                     @php
                         $now = date('Y-m-d');
                         $tgl = strtotime($year . '-' . $month . '-' . $day);
-                        $ok = $now == date('Y-m-d', $tgl);
+                        $ok = true;
+                        // $ok = $now == date('Y-m-d', $tgl);
                     @endphp
                     @if ($ok == true)
                         <button type="submit"

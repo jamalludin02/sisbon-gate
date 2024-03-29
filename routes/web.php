@@ -19,23 +19,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-
 Route::get('/', function () {
     return view('home');
-}); 
-
+});
 
 Route::get('/timestamp', function () {
     date_default_timezone_set('Asia/Jakarta');
     return response()->json(['timestamp' => now()->format('H:i:s')]);
 })->name('timestamp');
 
-
 Auth::routes();
 
 // RouteGroup::prefix('admin')
 Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function () {
-    Route::get('/', fn()=>view('pages.admin.dashboard'))->name('admin.dashboard');
+    Route::get('/', fn() => view('pages.admin.dashboard'))->name('admin.dashboard');
 
     // Jabatan
     Route::group(['prefix' => 'jabatan'], function () {
@@ -97,29 +94,25 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
         Route::get('/delete/{id}', [ctrlKriteriaPenilaian::class, 'AdminDelete'])->name('admin.kriteria-penilaian.delete');
     });
 
-
-    Route::get('/data-absensi/{year?}/{month?}', [ctrlPresensi::class, 'dataAbsensi'])->name('admin.absensi');
-    Route::get('/data-absensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataAbsensi'])->name('admin.absensi.form');
-    Route::post('/store/data-absensi/{year?}/{month?}/{day?}', [ctrlPresensi::class, 'storeDataAbsensi'])->name('admin.absensi.store');
-
+    Route::get('/data-presensi', [ctrlPresensi::class, 'dataPresensi'])->name('admin.presensi');
+    Route::get('/data-presensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataPresensi'])->name('admin.presensi.form');
+    Route::post('/store/data-presensi/{year?}/{month?}/{day?}', [ctrlPresensi::class, 'storeDataPresensi'])->name('admin.presensi.store');
 
     Route::get('penilaian', [ctrlPenilaian::class, 'getPeriodActive'])->name('admin.penilaian');
     Route::get('penilaian/{id}', [ctrlPenilaian::class, 'pegawaiList'])->name('admin.penilaian.select');
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('admin.penilaian.form');
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('admin.penilaian.store');
 
-    Route::get('laporan-penilaian/{id?}', [ctrlLaporan::class, 'dataLaporan'])->name('admin.laporan');
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporan::class, 'dataLaporan'])->name('admin.laporan-penilaian');
+    Route::get('laporan-presensi', [ctrlPresensi::class, 'dataLaporan'])->name('admin.laporan-presensi');
 });
 
 Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
-    Route::get('/', fn()=>view('pages.supervisor.dashboard'))->name('spv.dashboard');
+    Route::get('/', fn() => view('pages.supervisor.dashboard'))->name('spv.dashboard');
 
-    Route::get('/data-absensi/{year?}/{month?}', [ctrlPresensi::class, 'dataAbsensi'])->name('spv.absensi');
-    Route::get('/data-absensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataAbsensi'])->name('spv.absensi.form');
-    Route::post('/store/data-absensi/{year?}/{month?}/{day?}', [ctrlPresensi::class, 'storeDataAbsensi'])->name('spv.absensi.store');
-
-
-
+    Route::get('/data-presensi/{year?}/{month?}', [ctrlPresensi::class, 'dataPresensi'])->name('spv.presensi');
+    Route::get('/data-presensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataPresensi'])->name('spv.presensi.form');
+    Route::post('/store/data-presensi/{year?}/{month?}/{day?}', [ctrlPresensi::class, 'storeDataPresensi'])->name('spv.presensi.store');
 
     Route::get('penilaian', [ctrlPenilaian::class, 'getPeriodActive'])->name('spv.penilaian');
     Route::get('penilaian/{id}', [ctrlPenilaian::class, 'pegawaiList'])->name('spv.penilaian.select');
@@ -127,9 +120,11 @@ Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('spv.penilaian.store');
 
     // Route::get('/', [ctrlHome::class, 'SpvShow'])->name('spv.dashboard');
-    
-    // Route::get()
 
+    // Route::get()
 });
+
+Route::get('/laporan-penilaian/{id?}', [ctrlLaporan::class, 'printAsPdf'])->name('print.laporan-penilaian');
+Route::get('/laporan-presensi/{id?}', [ctrlPresensi::class, 'printAsPdf'])->name('print.laporan-presensi');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

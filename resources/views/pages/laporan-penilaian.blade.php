@@ -4,6 +4,7 @@
     <x-navbar-admin />
 @endif
 
+
 @extends('layouts.app')
 
 @section('content')
@@ -19,7 +20,7 @@
         <div class="card">
             <div class="card-header w-100 d-flex justify-content-between align-items-center py-auto">
                 <p class="m-0 d-flex">Absensi Pegawai</p>
-                <form action="{{ route('admin.laporan') }}" method="get"
+                <form action="{{ route('admin.laporan-penilaian') }}" method="get"
                     class="d-flex row w-50 justify-content-end  my-auto">
                     @csrf
                     @php
@@ -43,14 +44,15 @@
                 </form>
             </div>
             <div class="card-body tw-overflow-auto">
-
+                <a href="{{ route('print.laporan-penilaian', ['id' => $periode->id]) }}" target="_blank"
+                    class="btn btn-sm btn-danger tw-my-1">Print as PDF <i class="bi bi-printer"></i></a>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="tw-font-semibold">
-                            <td>Rangking</td>
-                            <td class="text-center">Nama</td>
-                            <td class="text-center">Nip</td>
-                            <td class="text-center">Jabatan</td>
+                            <td class="tw-w-14">Rangking</td>
+                            <td>Nip</td>
+                            <td>Nama</td>
+                            <td>Jabatan</td>
                             <td class="text-center">Positif</td>
                             <td class="text-center">Negatif</td>
                             <td class="text-center">Preferensi</td>
@@ -60,12 +62,12 @@
                         @foreach ($data as $key => $item)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
+                                <td class="tw-w-14">{{ $item['nip'] }}</td>
                                 <td>{{ $item['nama'] }}</td>
-                                <td>{{ $item['nip'] }}</td>
                                 <td>{{ $item['jabatan'] }}</td>
-                                <td>{{ $item['positif'] }}</td>
-                                <td>{{ $item['negatif'] }}</td>
-                                <td>{{ $item['preferensi'] }}</td>
+                                <td class="text-center">{{ $item['positif'] }}</td>
+                                <td class="text-center">{{ $item['negatif'] }}</td>
+                                <td class="text-center tw-w-14">{{ $item['preferensi'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

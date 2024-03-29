@@ -22,9 +22,9 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ route('spv.absensi') }}"
-                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.absensi', 'spv.absensi.*') ? 'tw-underline ' : '' }}">
-                          Absensi
+                      <a href="{{ route('spv.presensi') }}"
+                          class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.presensi', 'spv.presensi.*') ? 'tw-underline ' : '' }}">
+                          Presensi
                       </a>
                   </li>
                   <li class="nav-item">

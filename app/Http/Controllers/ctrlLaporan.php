@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\LaporanDataTable;
 use App\Models\Penilaian;
 use App\Models\PeriodePenilaian;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 
 class ctrlLaporan extends Controller
 {
@@ -26,6 +29,40 @@ class ctrlLaporan extends Controller
         } else {
             $periode = PeriodePenilaian::select('id')->find($id);
         }
+        $formattingData = $this->formattingData($periode->id);
+        $data = $this->topsis($formattingData);
+        // dd($data);
+        usort($data, function ($a, $b) {
+            if ($a['preferensi'] == $b['preferensi']) {
+                return 0;
+            }
+            return $a['preferensi'] > $b['preferensi'] ? -1 : 1;
+        });
+        // dd($data, $periode, $list, $role);
+        return view('pages.laporan-penilaian', compact('data', 'periode', 'list', 'role'));
+    }
+
+    public function printAsPdf($id)
+    {
+        $periode = PeriodePenilaian::find($id);
+        $formattingData = $this->formattingData($id);
+        $data = $this->topsis($formattingData);
+        return view('pages.pdf.laporan-penilaian', compact('data', 'periode'));
+    }
+
+    public function transposeData($data)
+    {
+        $transposed = [];
+        foreach ($data as $key => $value) {
+            foreach ($value as $subKey => $subValue) {
+                $transposed[$subKey][$key] = $subValue;
+            }
+        }
+        return $transposed;
+    }
+
+    public function formattingData($id)
+    {
         $nilaiPg = Penilaian::with([
             'pegawai' => function ($q) {
                 $q->with(['jabatan']);
@@ -33,7 +70,7 @@ class ctrlLaporan extends Controller
             'periode',
             'kriteria',
         ])
-            ->where('periode_id', $periode->id)
+            ->where('periode_id', $id)
             ->orderBy('pegawai_id')
             ->orderBy('kriteria_id')
             ->get()
@@ -61,16 +98,7 @@ class ctrlLaporan extends Controller
                     ->toArray();
             })
             ->toArray();
-
-        $data = $this->topsis($nilaiPg);
-        usort($data, function($a, $b) {
-            if ($a['preferensi'] == $b['preferensi']) {
-                return 0;
-            }
-            return ($a['preferensi'] > $b['preferensi']) ? -1 : 1;
-        });
-        
-        return view('pages.laporan', compact('data', 'periode', 'list', 'role'));
+        return $nilaiPg;
     }
 
     public function topsis($data)
@@ -185,16 +213,5 @@ class ctrlLaporan extends Controller
             ->toArray();
 
         return $matrixResult;
-    }
-
-    public function transposeData($data)
-    {
-        $transposed = [];
-        foreach ($data as $key => $value) {
-            foreach ($value as $subKey => $subValue) {
-                $transposed[$subKey][$key] = $subValue;
-            }
-        }
-        return $transposed;
     }
 }

@@ -73,10 +73,11 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="nav-item">
-                        <a href="{{ route('admin.absensi') }}"
-                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.absensi', 'admin.absensi.*') ? 'tw-underline ' : '' }}">
-                            Absensi
+                        <a href="{{ route('admin.presensi') }}"
+                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.presensi', 'admin.presensi.*') ? 'tw-underline ' : '' }}">
+                            Presensi
                         </a>
                     </li>
                     <li class="nav-item">
@@ -85,12 +86,32 @@
                             Penilaian
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.laporan') }}"
-                            class="nav-link text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.laporan', 'admin.laporan.*') ? 'tw-underline ' : '' }}">
-                            Laporan
+
+                    {{-- laporan --}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.laporan-presensi', 'admin.laporan-presensi.*', 'admin.laporan-penilaian', 'admin.laporan-penilaian.*') ? 'tw-underline ' : '' }}"
+                            id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="vertical-align: middle ;">Laporan
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-end tw-bg-white" aria-labelledby="navbarDropdown"
+                            style="">
+                            <li
+                                class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('admin.laporan-presensi', 'admin.laporan-presensi.*') ? 'tw-border-b-4' : '' }}">
+                                <a class="dropdown-item  " href="{{ route('admin.laporan-presensi') }}">
+                                   Laporan Presensi
+                                </a>
+                            </li>
+                            <li
+                                class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('admin.laporan-penilaian', 'admin.laporan-penilaian.*') ? 'tw-border-b-4' : '' }}">
+                                <a class="dropdown-item  " href="{{ route('admin.laporan-penilaian') }}">
+                                   Laporan penilaian
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
+
+
                     {{-- profile --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
