@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ctrlAkun;
+use App\Http\Controllers\ctrlGaji;
 use App\Http\Controllers\ctrlJabatan;
 use App\Http\Controllers\ctrlKriteriaPenilaian;
-use App\Http\Controllers\ctrlLaporan;
+use App\Http\Controllers\ctrlLaporanGaji;
+use App\Http\Controllers\ctrlLaporanPenilaian;
+use App\Http\Controllers\ctrlLaporanPresensi;
 use App\Http\Controllers\ctrlPegawai;
 use App\Http\Controllers\ctrlPenilaian;
 use App\Http\Controllers\ctrlPeriodePenilaian;
@@ -30,6 +33,8 @@ Route::get('/timestamp', function () {
 
 Auth::routes();
 
+
+// route group Admin
 // RouteGroup::prefix('admin')
 Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function () {
     Route::get('/', fn() => view('pages.admin.dashboard'))->name('admin.dashboard');
@@ -71,7 +76,7 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
         Route::get('/reset-password/{id}', [ctrlAkun::class, 'AdminResetPassword'])->name('admin.akun.reset-password');
     });
 
-    // perioder penilaian
+    // periode penilaian
     Route::group(['prefix' => 'periode-penilaian'], function () {
         Route::get('/', [ctrlPeriodePenilaian::class, 'AdminShow'])->name('admin.periode-penilaian');
         Route::get('/create', function () {
@@ -103,10 +108,13 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('admin.penilaian.form');
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('admin.penilaian.store');
 
-    Route::get('laporan-penilaian/{id?}', [ctrlLaporan::class, 'dataLaporan'])->name('admin.laporan-penilaian');
-    Route::get('laporan-presensi', [ctrlPresensi::class, 'dataLaporan'])->name('admin.laporan-presensi');
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'dataLaporan'])->name('admin.laporan-penilaian');
+    Route::get('laporan-presensi', [ctrlLaporanPresensi::class, 'dataLaporan'])->name('admin.laporan-presensi');
+    Route::get('laporan-gaji', [ctrlLaporanGaji::class, 'index'])->name('admin.laporan-gaji');
 });
 
+
+// route group SPV
 Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
     Route::get('/', fn() => view('pages.supervisor.dashboard'))->name('spv.dashboard');
 
@@ -119,12 +127,15 @@ Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('spv.penilaian.form');
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('spv.penilaian.store');
 
-    // Route::get('/', [ctrlHome::class, 'SpvShow'])->name('spv.dashboard');
-
-    // Route::get()
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'dataLaporan'])->name('spv.laporan-penilaian');
+    Route::get('laporan-presensi', [ctrlLaporanPresensi::class, 'dataLaporan'])->name('spv.laporan-presensi');
+    Route::get('laporan-gaji', [ctrlLaporanGaji::class, 'index'])->name('spv.laporan-gaji');
 });
 
-Route::get('/laporan-penilaian/{id?}', [ctrlLaporan::class, 'printAsPdf'])->name('print.laporan-penilaian');
-Route::get('/laporan-presensi/{id?}', [ctrlPresensi::class, 'printAsPdf'])->name('print.laporan-presensi');
+Route::get('/akun', [ctrlAkun::class, 'show'])->name('show-akun');
+Route::post('/akun', [ctrlAkun::class, 'update'])->name('update-akun');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'printAsPdf'])->name('print.laporan-penilaian');
+Route::get('/laporan-presensi/{year?}/{month?}', [ctrlLaporanPresensi::class, 'printAsPdf'])->name('print.laporan-presensi');
+Route::get('/laporan-gaji/{year?}/{month?}', [ctrlLaporanGaji::class, 'printAsPdf'])->name('print.laporan-gaji');

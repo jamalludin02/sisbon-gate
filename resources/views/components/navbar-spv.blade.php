@@ -34,24 +34,46 @@
                       </a>
                   </li>
 
-
+                  {{-- laporan --}}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('spv.laporan-presensi', 'spv.laporan-presensi.*', 'spv.laporan-penilaian', 'spv.laporan-penilaian.*', 'spv.laporan-gaji', 'spv.laporan-gaji.*') ? 'tw-underline ' : '' }}"
+                        id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="vertical-align: middle ;">Laporan
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end tw-bg-white" aria-labelledby="navbarDropdown"
+                        style="">
+                        <li
+                            class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('spv.laporan-presensi', 'spv.laporan-presensi.*') ? 'tw-border-b-4' : '' }}">
+                            <a class="dropdown-item  " href="{{ route('spv.laporan-presensi') }}">
+                               Laporan Presensi
+                            </a>
+                        </li>
+                        <li
+                            class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('spv.laporan-penilaian', 'spv.laporan-penilaian.*') ? 'tw-border-b-4' : '' }}">
+                            <a class="dropdown-item  " href="{{ route('spv.laporan-penilaian') }}">
+                               Laporan penilaian
+                            </a>
+                        </li>
+                        <li
+                            class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('spv.laporan-gaji', 'spv.laporan-gaji.*') ? 'tw-border-b-4' : '' }}">
+                            <a class="dropdown-item  " href="{{ route('spv.laporan-gaji') }}">
+                               Laporan gaji 
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                   {{-- profile --}}
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
                           id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                           aria-expanded="false" style="vertical-align: middle ;">
-                          Profile &nbsp;<i class="bi bi-person-circle"></i>
+                          Pengaturan &nbsp;<i class="bi bi-person-circle"></i>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdown" style="">
                           <li>
                               <a class="dropdown-item" href="#!">
-                                  <i class="bi bi-person-fill"></i>&nbsp; Profile
-                              </a>
-                          </li>
-                          <li>
-                              <a class="dropdown-item" href="#!">
-                                  <i class="bi bi-person-fill-gear"></i>&nbsp; User
+                                  <i class="bi bi-person-fill-gear"></i>&nbsp; Akun
                               </a>
                           </li>
                           <li class="p-0 m-0">

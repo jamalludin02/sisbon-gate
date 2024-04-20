@@ -28,7 +28,7 @@
                             </div>
                             <div class="row col-md input-group-sm mb-3">
                                 <label for="bobot" class="col-md-3 form-label align-middle pt-2 ps-0">Bobot</label>
-                                <input type="text" class="col-md form-control" id="bobot" name="bobot"
+                                <input type="number" min="0" max="5" class="col-md form-control" id="bobot" name="bobot"
                                     value="{{ $data->bobot }}" />
                             </div>
                         </div>

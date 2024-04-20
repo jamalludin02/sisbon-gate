@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('pegawai_id')->unsigned();
             $table->foreign('pegawai_id')->references('id')->on('pegawai')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->date('tgl');
-            $table->enum('status',array('HADIR','ALPA','SAKIT','IZIN','CUTI'))->default('HADIR');
+            $table->enum('status',array('HADIR','ALPA','SAKIT','IZIN','CUTI','LIBUR'))->default('HADIR');
             $table->timestamps();
         });
     }

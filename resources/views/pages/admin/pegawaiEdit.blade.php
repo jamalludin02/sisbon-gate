@@ -123,8 +123,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end pe-0 me-0">
-                        <a class="btn btn-secondary btn-sm w-auto px-3 me-2" role="button"
-                            onclick="btnBack()">Kembali</a>
+                        <a href="{{ route('admin.pegawai') }}" class="btn btn-secondary btn-sm w-auto px-3 me-2" role="button"
+                           >Kembali</a>
                         <a class="btn btn-danger btn-sm w-auto px-3 me-2" data-bs-toggle="modal" href="#exampleModal"
                             role="button" v-if="id">Hapus</a>
                         <button type="submit" class="btn btn-primary btn-sm w-auto px-3 tw-bg-[#007bff]">Simpan</button>

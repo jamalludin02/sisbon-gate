@@ -28,7 +28,7 @@
                         @foreach ($pegawai as $item)
                         {{-- @dd($item) --}}
                             <div class="d-flex row tw-shadow-md border rounded px-4 py-2 my-2">
-                                <div class="col-md-7  tw-align-middle">
+                                <div class="col-md-6  tw-align-middle">
                                     <div class="row">
                                         <div class="col-md-2">NIP</div>
                                         <div class="col">: {{ $item->nip }}</div>
@@ -82,6 +82,13 @@
                                                 value="CUTI"
                                                 {{ isset($item->status) && $item->status == 'CUTI' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="cuti{{ $item->pegawai_id }}">CUTI</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input required class="form-check-input" type="radio"
+                                                name="status_{{ $item->pegawai_id }}" id="libur{{ $item->pegawai_id }}"
+                                                value="LIBUR"
+                                                {{ isset($item->status) && $item->status == 'LIBUR' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="libur{{ $item->pegawai_id }}">LIBUR</label>
                                         </div>
                                     </div>
 

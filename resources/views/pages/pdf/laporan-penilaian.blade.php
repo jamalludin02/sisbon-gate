@@ -16,7 +16,7 @@
                     {{ $periode->tahun }}</p>
 
             </div>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped tw-text-sm ">
                 <thead>
                     <tr class="tw-font-semibold">
                         <td class="tw-w-14">Rangking</td>

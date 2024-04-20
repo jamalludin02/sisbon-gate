@@ -6,6 +6,7 @@ use App\Models\KriteriaPenilaian;
 use App\Models\Pegawai;
 use App\Models\Penilaian;
 use App\Models\PeriodePenilaian;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class ctrlPenilaian extends Controller
     {
         $role = Auth::user()->role;
         $data = PeriodePenilaian::where('status', 'DIBUKA')->first();
-        return view('pages.penilaianPeriode', isset($data) ? compact('data', 'role') : []);
+        return view('pages.penilaianPeriode', isset($data) ? compact('data', 'role') : compact('role'));
     }
     // getpegawaiList for spv
     public function pegawaiList($id)

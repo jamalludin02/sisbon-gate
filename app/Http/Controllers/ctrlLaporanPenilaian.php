@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 
-class ctrlLaporan extends Controller
+class ctrlLaporanPenilaian extends Controller
 {
     public function __construct()
     {
@@ -200,8 +200,9 @@ class ctrlLaporan extends Controller
                 // Menghitung preferensi
                 $preferensi = $sqrtNegatif / ($sqrtPositif + $sqrtNegatif);
 
-                // Mengembalikan hasil dalam bentuk array
+                // dd($item   );
                 return [
+                    'id' => $item[0]['pegawai_id'],
                     'nama' => $item[0]['nama'],
                     'nip' => $item[0]['nip'],
                     'jabatan' => $item[0]['jabatan'],

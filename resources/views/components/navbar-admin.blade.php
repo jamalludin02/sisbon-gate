@@ -89,7 +89,7 @@
 
                     {{-- laporan --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.laporan-presensi', 'admin.laporan-presensi.*', 'admin.laporan-penilaian', 'admin.laporan-penilaian.*') ? 'tw-underline ' : '' }}"
+                        <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.laporan-presensi', 'admin.laporan-presensi.*', 'admin.laporan-penilaian', 'admin.laporan-penilaian.*', 'admin.laporan-gaji', 'admin.laporan-gaji.*') ? 'tw-underline ' : '' }}"
                             id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="vertical-align: middle ;">Laporan
                         </a>
@@ -107,6 +107,12 @@
                                    Laporan penilaian
                                 </a>
                             </li>
+                            <li
+                                class="hover:tw-border-b-4 tw-border-[#9F70FD] {{ Request::routeIs('admin.laporan-gaji', 'admin.laporan-gaji.*') ? 'tw-border-b-4' : '' }}">
+                                <a class="dropdown-item  " href="{{ route('admin.laporan-gaji') }}">
+                                   Laporan gaji 
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -117,17 +123,12 @@
                         <a class="nav-link dropdown-toggle text-dark hover:tw-underline tw-underline-offset-[10px] tw-decoration-4 tw-decoration-[#9F70FD] active:tw-bg-[#9F70FD] {{ Request::routeIs('admin.profile') ? 'tw-underline ' : '' }}"
                             id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" style="vertical-align: middle ;">
-                            Profile &nbsp;<i class="bi bi-person-circle"></i>
+                            Pengaturan 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdown" style="">
                             <li>
-                                <a class="dropdown-item" href="#!">
-                                    <i class="bi bi-person-fill"></i>&nbsp; Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#!">
-                                    <i class="bi bi-person-fill-gear"></i>&nbsp; User
+                                <a class="dropdown-item" href="{{ route('show-akun') }}">
+                                    <i class="bi bi-person-fill-gear"></i>&nbsp; Akun
                                 </a>
                             </li>
                             <li class="p-0 m-0">

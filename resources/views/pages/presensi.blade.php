@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header w-100 d-flex justify-content-between align-items-center py-auto">
                 <p class="m-0 d-flex">Absensi Pegawai</p>
-                <form action="{{ route('spv.presensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
+                <form action="{{ $role == 'ADMIN' ? route('admin.presensi') : route('spv.presensi') }}" method="get" class="d-flex row w-50 justify-content-end  my-auto">
                     @csrf
                     <p class="mx-2 align-self-center w-25 tw-text-right">Pilih Absensi</p>
                     <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example" name="year">
@@ -20,10 +20,11 @@
                         @endfor
                     </select>
 
-                    <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example" name="month">
+                    <select class="form-select form-select-sm w-25 mx-1" aria-label=".form-select-sm example"
+                        name="month">
                         <option selected disabled>Pilih Bulan</option>
                         @for ($i = 1; $i <= 12; $i++)
-                            <option {{ $selectedMonth == $i ? 'selected' : '' }} value="{{ $i }}">
+                            <option {{ $selectedMonth == $i ? 'selected' : '' }} value="0{{ $i }}">
                                 {{ \Carbon\Carbon::createFromDate(null, intVal($i), 10)->locale('id')->monthName }}
                             </option>
                         @endfor
@@ -52,20 +53,22 @@
                                 $month = $orderdate[1];
                                 $day = $orderdate[2];
                             @endphp
-                            <div class="col-md-10 my-auto"> {{ $item->hari }},
-                                {{ $day }}-{{ $month }}-{{ $year }} </div>
+                            <div class="col-md-10 my-auto"> 
+                                <p>{{ $item->hari }},
+                                    {{ $day }}-{{ $month }}-{{ $year }}</p> 
+                                    <p class="tw-text-xs tw-text-red-500">{{ $item->presensi }}</p>   
+                            </div>
                             <div class="col-md-2 text-center tw-my-auto">
                                 @if ($item->status == 'enable')
                                     @if ($role == 'SPV')
-                                    <a href="{{ route('spv.absensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
-                                        class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
-                                    </a>
+                                        <a href="{{ route('spv.presensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
+                                            class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
+                                        </a>
                                     @elseif ($role == 'ADMIN')
-                                    <a href="{{ route('admin.presensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
-                                        class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
-                                    </a>
+                                        <a href="{{ route('admin.presensi.form', ['year' => $year, 'month' => $month, 'day' => $day, 'dayName' => $item->hari]) }}"
+                                            class="text-center tw-bg-green-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">Tersedia
+                                        </a>
                                     @endif
-                                   
                                 @else
                                     <p
                                         class=" text-center tw-bg-red-500 tw-text-white tw-py-2 tw-px-3 tw-w-100 tw-mx-0 tw-rounded">

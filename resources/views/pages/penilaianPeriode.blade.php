@@ -11,6 +11,7 @@
             <div class="card-header">
                 <p class="m-0">Periode</p>
             </div>
+            {{-- @dd({{ \Carbon\Carbon::createFromDate(null, intVal($data->bulan), 10)->locale('id')->monthName }}) --}}
             <div class="card-body tw-p-5">
                 @if (isset($data))
                     <div>
@@ -22,7 +23,7 @@
                             <div class="row col-md">
                                 <div class="col-md-3">Bulan</div>
                                 <div class="col-md">:
-                                    {{ \Carbon\Carbon::createFromDate(null, intVal($data->bulan), 10)->locale('id')->monthName }}
+                                    {{$data->bulan}}
                                 </div>
                             </div>
                         </div>

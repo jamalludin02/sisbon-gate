@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\DataTables\AkunDataTable;
 use App\Models\Akun;
 use App\Models\Pegawai;
+use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -102,5 +104,54 @@ class ctrlAkun extends Controller
             return back()->with('error', $e->getMessage());
         }
         return redirect()->route('admin.akun')->with('success', 'Password Berhasil di reset');
+    }
+
+    public function show()
+    {
+        $role = Auth::user()->role;
+        $data = Auth::user();
+        // dd($data);
+
+        return view('pages.akunSetting', compact('data', 'role'));
+    }
+    public function update(Request $request)
+    {   
+        $role = Auth::user()->role;
+        $id = Auth::user()->id;
+        // dd($id);
+        $user = Akun::find($id);
+        if ($request->oldPassword  && $request->newPassword  && $request->confirmPassword) {
+            if ($request->newPassword == $request->confirmPassword) {
+                if (Hash::check($request->oldPassword, $user->password)) {
+                    try {
+                        $user->fill([
+                            'email' => $request->email,
+                            'password' => Hash::make($request->newPassword)
+                        ])->save();
+
+                        return redirect()->back()->with('success', 'email Berhasil Di Update');
+                        // return response()->json(["data" => $user]);
+                    } catch (Error $err) {
+                        return redirect()->back()->with('error', $err);
+                        // return response()->json(['err' => $err]);
+                    }
+                } else {
+                    return redirect()->back()->with('error', 'password lama tidak cocok.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'password baru dan konfirmasi password tidak sesuai.');
+            }
+        }
+        try {
+            $data = $user->fill([
+                'email' => $request->email,
+            ])->save();
+            return view('pages.akunSetting', compact('data', 'role'))->with('success', 'email Berhasil Di Update');
+        } catch (Error $err) {
+            return view('pages.akunSetting', compact('data', 'role'))->with('error', $err);
+        }
+        // dd($data);
+
+        return view('pages.akunSetting', compact('data', 'role'));
     }
 }
