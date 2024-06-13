@@ -117,41 +117,41 @@ class ctrlAkun extends Controller
     public function update(Request $request)
     {   
         $role = Auth::user()->role;
-        $id = Auth::user()->id;
-        // dd($id);
-        $user = Akun::find($id);
-        if ($request->oldPassword  && $request->newPassword  && $request->confirmPassword) {
-            if ($request->newPassword == $request->confirmPassword) {
-                if (Hash::check($request->oldPassword, $user->password)) {
-                    try {
-                        $user->fill([
-                            'email' => $request->email,
-                            'password' => Hash::make($request->newPassword)
-                        ])->save();
+            $id = Auth::user()->id;
+            // dd($id);
+            $user = Akun::find($id);
+            if ($request->oldPassword  && $request->newPassword  && $request->confirmPassword) {
+                if ($request->newPassword == $request->confirmPassword) {
+                    if (Hash::check($request->oldPassword, $user->password)) {
+                        try {
+                            $user->fill([
+                                'email' => $request->email,
+                                'password' => Hash::make($request->newPassword)
+                            ])->save();
 
-                        return redirect()->back()->with('success', 'email Berhasil Di Update');
-                        // return response()->json(["data" => $user]);
-                    } catch (Error $err) {
-                        return redirect()->back()->with('error', $err);
-                        // return response()->json(['err' => $err]);
+                            return redirect()->back()->with('success', 'email Berhasil Di Update');
+                            // return response()->json(["data" => $user]);
+                        } catch (Error $err) {
+                            return redirect()->back()->with('error', $err);
+                            // return response()->json(['err' => $err]);
+                        }
+                    } else {
+                        return redirect()->back()->with('error', 'password lama tidak cocok.');
                     }
                 } else {
-                    return redirect()->back()->with('error', 'password lama tidak cocok.');
+                    return redirect()->back()->with('error', 'password baru dan konfirmasi password tidak sesuai.');
                 }
-            } else {
-                return redirect()->back()->with('error', 'password baru dan konfirmasi password tidak sesuai.');
             }
-        }
-        try {
-            $data = $user->fill([
-                'email' => $request->email,
-            ])->save();
-            return view('pages.akunSetting', compact('data', 'role'))->with('success', 'email Berhasil Di Update');
-        } catch (Error $err) {
-            return view('pages.akunSetting', compact('data', 'role'))->with('error', $err);
-        }
-        // dd($data);
+            try {
+                $data = $user->fill([
+                    'email' => $request->email,
+                ])->save();
+                return view('pages.akunSetting', compact('data', 'role'))->with('success', 'email Berhasil Di Update');
+            } catch (Error $err) {
+                return view('pages.akunSetting', compact('data', 'role'))->with('error', $err);
+            }
+            // dd($data);
 
-        return view('pages.akunSetting', compact('data', 'role'));
+            return view('pages.akunSetting', compact('data', 'role'));
     }
 }

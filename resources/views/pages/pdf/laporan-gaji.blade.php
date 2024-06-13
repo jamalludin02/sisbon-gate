@@ -12,7 +12,9 @@
         </div>
         <div class="w-100 tw-px-10 tw-mb-2 justify-content-center" id="body">
             <div class="tw-my-10">
-                <p class="tw-font-semibold">Laporan Gaji Karyawan: {{ \Carbon\Carbon::createFromDate(null, intVal($month), 10)->locale('id')->monthName }} - {{$year}}</p>
+                <p class="tw-font-semibold">Laporan Gaji Karyawan:
+                    {{ \Carbon\Carbon::createFromDate(null, intVal($month), 10)->locale('id')->monthName }} -
+                    {{ $year }}</p>
             </div>
             <table class="table table-bordered table-striped tw-text-sm">
                 <thead>
