@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Jabatan;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class JabatanSeeder extends Seeder
 {
@@ -13,29 +15,13 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        Jabatan::create([
-            'jabatan' => 'Manager',
-            'gaji_harian' => 10000000, // Isi dengan gaji pokok yang sesuai
-        ]);
 
-        Jabatan::create([
-            'jabatan' => 'Supervisor',
-            'gaji_harian' => 8000000, // Isi dengan gaji pokok yang sesuai
-        ]);
-
-        Jabatan::create([
-            'jabatan' => 'Staff',
-            'gaji_harian' => 6000000, // Isi dengan gaji pokok yang sesuai
-        ]);
-
-        Jabatan::create([
-            'jabatan' => 'Assistant',
-            'gaji_harian' => 5000000, // Isi dengan gaji pokok yang sesuai
-        ]);
-
-        Jabatan::create([
-            'jabatan' => 'Trainee',
-            'gaji_harian' => 3000000, // Isi dengan gaji pokok yang sesuai
+        Jabatan::insert([
+            ['jabatan' => 'FORMEN', 'gaji_harian' => 100000],
+            ['jabatan' => 'FITTER', 'gaji_harian' => 80000],
+            ['jabatan' => 'RIGGER', 'gaji_harian' => 70000],
+            ['jabatan' => 'SCAFFOLDER', 'gaji_harian' => 75000],
+            ['jabatan' => 'WELDER', 'gaji_harian' => 85000],
         ]);
     }
 }

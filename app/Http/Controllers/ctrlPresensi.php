@@ -44,7 +44,8 @@ class ctrlPresensi extends Controller
                 'hari' => $this->getIndonesianDayName($date->year, $date->month, $date->day),
                 'tgl' => $date->toDateString(),
                 'presensi' => $countPresensi == $countPegawai ? ' ' : 'Absensi Tidak Lengkap',
-                'status' => $date->isToday() && now()->hour >= 7 && now()->hour < 17 ? 'enable' : 'disable',
+                'status' =>'enable',
+                // 'status' => $date->isToday() && now()->hour >= 7 && now()->hour < 17 ? 'enable' : 'disable',
             ];
         }
 
