@@ -23,19 +23,18 @@ class ctrlLaporanGaji extends Controller
         $selectedMonth = $request->month ?? now()->format('m');
         $firstYearList = $selectedYear - 5;
         $periode = PeriodePenilaian::select('id')->where('tahun', intval($selectedYear))->where('bulan', intval($selectedMonth))->first();
-        if ($periode == null) {
-            $data = null;
-            return view('pages.laporan-gaji', compact('data', 'selectedYear', 'selectedMonth', 'firstYearList',  'role'));
-        }
-        // dd($selectedYear, intval());
+        // if ($periode == null) {
+        //     $data = null;
+        //     return view('pages.laporan-gaji', compact('data', 'selectedYear', 'selectedMonth', 'firstYearList',  'role'));
+        // }
 
         $data = $this->generateGaji($attendanceService, $selectedYear, $selectedMonth);
 
-        // dd($data);
         return view('pages.laporan-gaji', compact('data', 'selectedYear', 'selectedMonth', 'firstYearList',  'role'));
     }
 
-    public function printAsPdf(AttendanceService $attendanceService,$year, $month){
+    public function printAsPdf(AttendanceService $attendanceService, $year, $month)
+    {
         $data = $this->generateGaji($attendanceService, $year, $month);
         return view('pages.pdf.laporan-gaji', compact('data', 'year', 'month'));
     }
@@ -43,23 +42,30 @@ class ctrlLaporanGaji extends Controller
     {
 
         $periode = PeriodePenilaian::select('id')->where('tahun', intval($year))->where('bulan', intval($month))->first();
-        $request = new Request();
-        $request->merge(['id' => $periode->id]);
+        if ($periode) {
+            $request = new Request();
+            $request->merge(['id' => $periode->id]);
+        }
 
         $lapPresensi = new ctrlLaporanPresensi();
         $lapPresensi = $lapPresensi->generateLaporanPresensi($attendanceService, $year, $month);
 
         $lapPenilaian = new ctrlLaporanPenilaian();
-        $lapPenilaian = $lapPenilaian->dataLaporan($request);
+        if ($periode) {
+            $lapPenilaian = $lapPenilaian->dataLaporan($request);
+        }
         // dd($lapPenilaian);
 
         // $penilaian = $penilaian->lapo
         $lapPresensi = collect($lapPresensi['arrAttPegawai'])->all();
-        $lapPresensi = collect($lapPresensi)->map(function ($item) use ($lapPenilaian) {
-            $lapPenilaianArray = collect($lapPenilaian['data'])->toArray();
+        $lapPresensi = collect($lapPresensi)->map(function ($item) use ($lapPenilaian, $periode) {
+            $rangkig = 0;
+            if ($periode) {
+                $lapPenilaianArray = collect($lapPenilaian['data'])->toArray();
+                $getIndexRangking = array_search($item['data']['id'], array_column($lapPenilaianArray, 'id'));
+                $rangkig = $getIndexRangking + 1;
+            }
             // dd($lapPenilaianArray);
-            $getIndexRangking = array_search($item['data']['id'], array_column($lapPenilaianArray, 'id'));
-            $rangkig = $getIndexRangking + 1;
             // dd($getIndexRangking);
 
             // H = Hadir, A = Alpha, S = Sakit, I = Izin, C = Cuti
@@ -96,7 +102,7 @@ class ctrlLaporanGaji extends Controller
                 })
                 ->count();
 
-            $gaji = ($hadirCount-$liburCount) * $item['data']['gaji_harian'];
+            $gaji = ($hadirCount - $liburCount) * $item['data']['gaji_harian'];
             // Menggunakan if-else untuk menghitung bonus gaji berdasarkan rangking
             if ($rangkig == '1') {
                 $bonus_gaji = 500000;
@@ -106,9 +112,9 @@ class ctrlLaporanGaji extends Controller
                 $bonus_gaji = 300000;
             } elseif ($rangkig == '4') {
                 $bonus_gaji = 200000;
-            }elseif ($rangkig == '5') {
+            } elseif ($rangkig == '5') {
                 $bonus_gaji = 100000;
-            }else{
+            } else {
                 $bonus_gaji = 0;
             }
 

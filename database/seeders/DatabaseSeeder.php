@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
         sleep(1);
         $this->call([KriteriaPenilaian::class]);
         sleep(1);
+        $this->call([PresensiSeeder::class]);
+        sleep(1);
 
     }
 }

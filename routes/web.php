@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ctrlAkun;
+use App\Http\Controllers\ctrlDashboard;
 use App\Http\Controllers\ctrlGaji;
 use App\Http\Controllers\ctrlJabatan;
 use App\Http\Controllers\ctrlKriteriaPenilaian;
@@ -37,7 +38,8 @@ Auth::routes();
 // route group Admin
 // RouteGroup::prefix('admin')
 Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function () {
-    Route::get('/', fn() => view('pages.admin.dashboard'))->name('admin.dashboard');
+    // Route::get('/', fn() => view('pages.admin.dashboard'))->name('admin.dashboard');
+    Route::get('/', [ctrlDashboard::class, 'indexAdmin'])->name('admin.dashboard');    
 
     // Jabatan
     Route::group(['prefix' => 'jabatan'], function () {
@@ -108,7 +110,7 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('admin.penilaian.form');
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('admin.penilaian.store');
 
-    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'dataLaporan'])->name('admin.laporan-penilaian');
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'index'])->name('admin.laporan-penilaian');
     Route::get('laporan-presensi', [ctrlLaporanPresensi::class, 'dataLaporan'])->name('admin.laporan-presensi');
     Route::get('laporan-gaji', [ctrlLaporanGaji::class, 'index'])->name('admin.laporan-gaji');
 });
@@ -116,7 +118,8 @@ Route::group(['middleware' => ['auth', 'Admin'], 'prefix' => 'admin'], function 
 
 // route group SPV
 Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
-    Route::get('/', fn() => view('pages.supervisor.dashboard'))->name('spv.dashboard');
+    // Route::get('/', fn() => view('pages.supervisor.dashboard'))->name('spv.dashboard');
+    Route::get('/', [ctrlDashboard::class, 'indexSupervisor'])->name('spv.dashboard');
 
     Route::get('/data-presensi/{year?}/{month?}', [ctrlPresensi::class, 'dataPresensi'])->name('spv.presensi');
     Route::get('/data-presensi/{year?}/{month?}/{day?}/{dayName}', [ctrlPresensi::class, 'showDataPresensi'])->name('spv.presensi.form');
@@ -127,7 +130,7 @@ Route::group(['middleware' => ['auth', 'SPV'], 'prefix' => 'spv'], function () {
     Route::get('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'formPenilaian'])->name('spv.penilaian.form');
     Route::post('penilaian/{periode_id}/{pegawai_id}', [ctrlPenilaian::class, 'storePenilaian'])->name('spv.penilaian.store');
 
-    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'dataLaporan'])->name('spv.laporan-penilaian');
+    Route::get('laporan-penilaian/{id?}', [ctrlLaporanPenilaian::class, 'index'])->name('spv.laporan-penilaian');
     Route::get('laporan-presensi', [ctrlLaporanPresensi::class, 'dataLaporan'])->name('spv.laporan-presensi');
     Route::get('laporan-gaji', [ctrlLaporanGaji::class, 'index'])->name('spv.laporan-gaji');
 });

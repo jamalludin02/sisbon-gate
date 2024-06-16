@@ -18,16 +18,28 @@ class ctrlLaporanPenilaian extends Controller
     {
         $this->middleware('auth');
     }
-    public function dataLaporan(Request $request)
+
+    public function index(Request $request)
     {
-        $id = $request->id ?? null;
+        $result = $this->dataLaporan($request->id);
+
+        $data = $result['data'];
+        $periode = $result['periode'];
+        $list = $result['list'];
+        $role = $result['role'];
+
+        return view('pages.laporan-penilaian', compact('data', 'periode', 'list', 'role'));
+    }
+    public function dataLaporan($id)
+    {
         // var_dump($id);
+        $id = $id ?? null;
         $role = Auth::user()->role;
         $list = PeriodePenilaian::all();
         if ($id == null) {
-            $periode = PeriodePenilaian::select('id')->latest()->firstOrFail();
+            $periode = PeriodePenilaian::select('*')->latest()->firstOrFail();
         } else {
-            $periode = PeriodePenilaian::select('id')->find($id);
+            $periode = PeriodePenilaian::select('*')->find($id)->first();
         }
         $formattingData = $this->formattingData($periode->id);
         $data = $this->topsis($formattingData);
@@ -39,7 +51,7 @@ class ctrlLaporanPenilaian extends Controller
             return $a['preferensi'] > $b['preferensi'] ? -1 : 1;
         });
         // dd($data, $periode, $list, $role);
-        return view('pages.laporan-penilaian', compact('data', 'periode', 'list', 'role'));
+        return compact('data', 'periode', 'list', 'role');
     }
 
     public function printAsPdf($id)

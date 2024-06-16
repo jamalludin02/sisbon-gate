@@ -24,7 +24,7 @@ class KriteriaPenilaian extends Seeder
         // foreach ($data as $key => $value) {
         //     ModelsKriteriaPenilaian::create($value);
         // }
-        DB::table('kriteria')->insert([
+        DB::table('kriteria_penilaian')->insert([
             [
                 'kriteria' => 'Kerjasama tim',
                 'deskripsi' => 'Kemampuan bekerja sama dalam tim',

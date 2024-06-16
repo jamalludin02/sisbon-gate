@@ -31,7 +31,7 @@
                         <option selected disabled value="">Pilih Periode</option>
                         @foreach ($list as $item)
                             <option {{ $idSelected == $item->id ? 'selected' : '' }} value="{{ $item->id }}">
-                                Periode {{ $item->id }}, {{ $item->bulan }} - {{ $item->tahun }}</option>
+                                Periode {{ $item->id%2 == 0 ? 'Genap' : 'Ganjil' }}, {{ $item->bulan }} - {{ $item->tahun }}</option>
                         @endforeach
                     </select>
 
